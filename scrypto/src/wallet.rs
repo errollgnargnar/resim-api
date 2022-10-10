@@ -72,18 +72,12 @@ blueprint! {
             
             }.instantiate();
             treasury_component.add_access_check(rules);
-            (treasury_component.globalize(), first_admin_badge)
-
-            
-            
+            (treasury_component.globalize(), first_admin_badge)            
         }
     
         // This method is used to check the balance of a desired tokken vault.
         pub fn balances(&self, token_resource_id: ResourceAddress) {
             info!("My token balance is {:?}", self.vault_account.get(&token_resource_id)); // This is the line that prints the balance of the desired token.
-            // Issue: This is not printing the balance of the desired token. It is printing the address within the Vault of xyz token.
-            // Issue 2: Tried to transfer XRD into the vault to try and see if balances would work in this case but received the following error:
-            // COMMITTED FAILURE: KernelError(MethodNotFound(Scrypto { package_address: package_sim1q9xy90jf33s09ftvhtsxk6gp6gkysqc8mv7s5thqmyestalaa4, blueprint_name: "Treasury", ident: "deposit_batch" }))
         }
 
         pub fn deposit(&mut self, token_resource_id: ResourceAddress, bucket: Bucket) {
@@ -108,8 +102,6 @@ blueprint! {
         // This method is used to remove a token vault from the vault_account HashMap using the token name (Key).
         pub fn remove_token(&mut self, token_resource_id: ResourceAddress) {
             self.vault_account.remove(&token_resource_id); // This is the line that removes a vault from the vault_account HashMap.
-            // Issue: This is not removing the vault from the vault_account HashMap. 
-            // Raises the following error: COMMITTED FAILURE: KernelError(StoredNodeRemoved(Vault((a27cb1357f4191d27107eda8eee6b6cf1eb1ff25f8a09c8cba9ff4bfa2fb95ae, 1024))))
         }
 
         // This method is used to add an external address to the deposit_whitelist HashMap using the entity name (Key) and the external address (Value). (WORKS)

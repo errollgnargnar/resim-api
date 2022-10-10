@@ -8,6 +8,20 @@ const port = 3000
 let accounts = [];
 let packages = [];
 
+exec("bash ../shscripts/index.sh reset", (err, stdout,stderr) => {
+  if (err) {
+    console.log(`error: ${err.message}`);
+    return;
+  }
+  if (stderr) {
+    console.log(`stderr: ${stderr}`);
+    return;
+  }
+  let newAccnt = stdout.split(' ');
+  accounts.push(newAccnt);
+  accounts[accounts.length-1][2] = accounts[accounts.length-1][2].replace('\n','');
+})
+
 app.get('/reset', (req,res) => {
   accounts = [];
   packages = [];
@@ -66,8 +80,14 @@ app.get('/newaccount', (req,res) => {
 
 app.get('/newtreasury', (req, res) => {
   exec(`bash ../shscripts/index.sh new_treasury ${packages[0][0]}`, (err, stdout, stderr) => {
-    res.send(stdout);
+    packages[0].push(stdout);
+    packages[0][packages[0].length-1] = packages[0][packages[0].length-1].replace('\n','');
+    res.send(packages);
   })
+});
+
+app.get('/getpackages', (req,res) => {
+  res.send(packages);
 })
 
 app.listen(port, () => {
