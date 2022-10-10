@@ -3,7 +3,7 @@ const { exec } = require("child_process");
 
 const app = express()
 app.use(express.json());
-const port = 3000
+const port = 4444
 
 let accounts = [];
 let packages = [];
@@ -62,7 +62,7 @@ app.get('/getaccounts', (req, res) => {
 })
 
 app.get('/newaccount', (req,res) => {
-  exec("bash ../shscripts/index.sh resnpub", (err, stdout,stderr) => {
+  exec("bash ../shscripts/index.sh newaccnt", (err, stdout,stderr) => {
     if (err) {
       console.log(`error: ${err.message}`);
       return;
