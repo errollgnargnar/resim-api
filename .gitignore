@@ -1,0 +1,4 @@
+scrypto/target
+scrypto/tests
+
+express-server/node_modules
