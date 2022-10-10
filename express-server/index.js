@@ -1,5 +1,6 @@
 const express = require('express')
 const { exec } = require("child_process");
+const { rmSync } = require('fs');
 
 const app = express()
 app.use(express.json());
@@ -85,6 +86,10 @@ app.get('/newtreasury', (req, res) => {
     res.send(packages);
   })
 });
+
+app.get('/all', (req, res) => {
+  res.send({accounts, packages});
+})
 
 app.get('/getpackages', (req,res) => {
   res.send(packages);
