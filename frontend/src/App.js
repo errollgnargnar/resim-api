@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Blockie from "./Components/Blockie";
+import CompBlock from "./Components/CompBlock";
 import axios from "axios";
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 
   const ledgerMap = ledgerState.map((thing, i) => {
     return (
-      <Blockie key={i} data={thing} />
+      <CompBlock key={i} data={thing} />
     )
   })
 
